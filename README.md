@@ -2,7 +2,7 @@
 
 # Simple internationalization (i18n) for Spring Boot
 
-This project provides a simple way to internationalize your Spring Boot application.
+This project provides a simple guide and code to internationalize your Spring Boot application using default methods for Spring Framework.  
 
 ### Project details:
 - Java 19
