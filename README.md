@@ -9,15 +9,16 @@ This project provides a simple way to internationalize your Spring Boot applicat
 - Maven
 - SimpleLocalize
 
-
 ![translated spring boot page](/readme/translated-springboot-webpages.png)
 
 
 ## Usage
 
+Configuration steps are described after `Usage` section.
+
 ### Get translated messages
 
-You can get translated messages by using `MessageSource` bean. This is the default way to get translated messages in Spring Boot.
+Use `MessageSource` to get translated messages. This is the default way to get translated messages in Spring Boot.
 
 ```java
 import org.springframework.context.MessageSource;
@@ -42,7 +43,8 @@ void shouldGetTranslatedTextFromLocalFileAndLocale()
 
 ### Thymeleaf: render HTML with translations
 
-You can render HTML with translated messages by using `ThymeleafEngine` bean. This is _probably_ the most 
+
+Use `ThymeleafEngine` bean to render HTML with translated messages. This is _probably_ the most 
 popular way to render HTML with translated messages in Spring Boot.
 
 ```java
@@ -65,8 +67,9 @@ public String renderHtmlFromTemplate(Locale locale, String userName)
 
 ### Return translated web pages
 
+You can also return translated web pages (HTML) by using standard Spring Boot `@Controller`.
+Spring Boot will automatically resolve user locale and render HTML from `my-html-template.html` template with translated messages.
 
-You can return translated web pages (HTML) by using standard Spring Boot `@Controller`. 
 This is the default way to return translated web pages in Spring Boot. 
 
 ```java
