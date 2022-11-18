@@ -1,4 +1,6 @@
-# Internationalization (i18n) for Spring Boot
+![translated spring boot page](/readme/translated-springboot-webpages.png)
+
+# Simple internationalization (i18n) for Spring Boot
 
 This project provides a simple way to internationalize your Spring Boot application.
 
@@ -8,9 +10,6 @@ This project provides a simple way to internationalize your Spring Boot applicat
 - Thymeleaf
 - Maven
 - SimpleLocalize
-
-![translated spring boot page](/readme/translated-springboot-webpages.png)
-
 
 ## Usage
 
