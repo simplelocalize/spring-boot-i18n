@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" th:attr="lang=${lang}">
+
+<head>
+  <title>Spring Boot Email Example</title>
+</head>
+
+<body>
+<header>
+  <h1 th:utext="#{title(${userName})}"></h1>
+</header>
+
+<article>
+  <p th:text="#{message}"></p>
+  <a th:href="${url}" th:text="#{linkText}"></a>
+</article>
+<footer>
+  <p th:text="#{footerText}"></p>
+</footer>
+</body>
+
+</html>

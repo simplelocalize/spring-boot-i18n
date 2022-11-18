@@ -1,0 +1,9 @@
+# apiKey: <YOUR_API_KEY>
+
+downloadFormat: java-properties
+downloadPath: ./src/main/resources/i18n/messages_{lang}.properties
+
+uploadFormat: java-properties
+uploadPath: ./src/main/resources/i18n/messages_{lang}.properties
+
+# Learn more: https://simplelocalize.io/docs/cli/get-started
