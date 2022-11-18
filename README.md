@@ -9,7 +9,9 @@ This project provides a simple guide and code to internationalize your Spring Bo
 - Spring Boot 3.0
 - Thymeleaf
 - Maven
-- SimpleLocalize
+- SimpleLocalize Editor
+
+![simplelocalize](/readme/simplelocalize-editor.png)
 
 ## Usage
 
