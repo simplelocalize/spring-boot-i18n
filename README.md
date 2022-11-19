@@ -1,20 +1,21 @@
-# Internationalization (i18n) for Spring Boot
+![translated spring boot page](/readme/translated-springboot-webpages.png)
 
-This project provides a simple way to internationalize your Spring Boot application.
+# Simple internationalization (i18n) for Spring Boot
+
+This project provides a simple guide and code to internationalize your Spring Boot application using default methods for Spring Framework. 
+[Step-by-step guide with configuration part is available here](https://simplelocalize.io/blog/posts/spring-boot-simple-internationalization/).
 
 ### Project details:
 - Java 19
 - Spring Boot 3.0
 - Thymeleaf
 - Maven
-- SimpleLocalize
+- SimpleLocalize Editor
 
-![translated spring boot page](/readme/translated-springboot-webpages.png)
-
+![simplelocalize](/readme/simplelocalize-editor.png)
 
 ## Usage
 
-Configuration steps are described after `Usage` section.
 
 ### Get translated messages
 
@@ -89,110 +90,3 @@ Run the application and open `http://localhost:8080/welcome` in your browser.
 You can change the language by adding `?lang=pl_PL` to the URL.
 
 ![changing lang parameter in spring boot](/readme/change-language-parameter.gif)
-
-
-## Configuration
-
-### 1. Create `messages_xx.properties` files
-
-The messages are stored in the `messages_XX.properties` files. The `XX` is the language code. For example, `messages_pl_PL.properties` is the Polish version of the messages.
-
-```properties
-footerText=© 2023 SimpleLocalize. Wszelkie prawa zastrzeżone.
-linkText=Utwórz konto SimpleLocalize
-message=Dziękujemy za wypróbowanie naszego demo SimpleLocalize dla Spring Boot!
-title=Hej {0}!
-```
-
-If you are using SimpleLocalize, you can download the `messages_XX.properties` files providing your `apiKey` in `simplelocalize.yml` file and invoking `simplelocalize download` command.
-
-![download messages_xx.properties files via simplelocalize cli](/readme/java-properties-download.gif)
-
-### 2. Configure `messages_xx.properties` location
-
-The default location for messages is `src/main/resources/messages`. 
-You can change this by setting the `spring.messages.basename` property in your `application.properties` file
- or by providing your `ResourceBundleMessageSource` bean. 
- 
-```java
-@Bean
-public ResourceBundleMessageSource messageSource() {
-    var resourceBundleMessageSource = new ResourceBundleMessageSource();
-    resourceBundleMessageSource.setBasenames("i18n/messages"); // directory with messages_XX.properties
-    resourceBundleMessageSource.setUseCodeAsDefaultMessage(true);
-    resourceBundleMessageSource.setDefaultLocale(Locale.of("en"));
-    resourceBundleMessageSource.setDefaultEncoding("UTF-8");
-    return resourceBundleMessageSource;
-}
-```
-
-![messages_xx.properties in IDE](/readme/messages_in_ide.png)
-
-### 3. Configure resolving locale from requests
-
-The default locale resolver is `AcceptHeaderLocaleResolver` which resolves the locale from the `Accept-Language` header.
-You can change this by setting the `spring.mvc.locale-resolver` property in your `application.properties` file or by providing your `LocaleResolver` bean, 
-creating `LocaleChangeInterceptor` and registering it via `addInterceptors` method (see `WebMvcConfigurer` class).
-
-```java
-@Bean
-public LocaleResolver localeResolver() {
-    SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-    sessionLocaleResolver.setDefaultLocale(Locale.of("en"));
-    return sessionLocaleResolver;
-}
-
-@Bean
-public LocaleChangeInterceptor localeChangeInterceptor() {
-    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-    localeChangeInterceptor.setParamName("lang");
-    return localeChangeInterceptor;
-}
-
-@Override
-public void addInterceptors(InterceptorRegistry registry)
-{
-  registry.addInterceptor(localeChangeInterceptor());
-}
-```
-
-### 4. Create HTML template with Thymeleaf
-
-If you want to get an HTML document with translated messages, for example, to send via email, you can use Thymeleaf template engine.
-
-```html
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" th:attr="lang=${lang}">
-
-<head>
-  <title>Spring Boot Email Example</title>
-</head>
-
-<body>
-<header>
-  <h1 th:utext="#{title(${userName})}"></h1>
-</header>
-
-<article>
-  <p th:text="#{message}"></p>
-  <a th:href="${url}" th:text="#{linkText}"></a>
-</article>
-<footer>
-  <p th:text="#{footerText}"></p>
-</footer>
-</body>
-
-</html>
-```
-
-#### Quick Thymeleaf guide:
- 
-- `th:attr="lang=${lang}"` - sets the language of the document
-- `th:utext="#{title(${userName})}"` - gets a message with `title` key and inserts the value of the `userName` variable
-- `th:text="#{message}"` - gets a message with `message` key
-- `th:href="${url}"` - inserts a value of the `url` variable
-- You can use `th:utext` instead of `th:text` to avoid escaping HTML characters.
-- You can use `th:attr` to set the `lang` attribute on the `html` tag.
-
-You can use [https://mjml.io](https://mjml.io) to create responsive HTML emails for free.
-
